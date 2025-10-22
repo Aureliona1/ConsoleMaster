@@ -15,7 +15,7 @@
 			"command": "deno doc --lint mod.ts && deno lint"
 		}
 	},
-	"name": "@aurellis/consolemaster",
+	"name": "@aurellis/console-master",
 	"version": "1.0.0",
 	"license": "MIT",
 	"exports": "./mod.ts"
