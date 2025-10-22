@@ -1,2 +1,22 @@
 {
+	"lint": {
+		"include": [
+			"mod.ts"
+		],
+		"rules": {
+			"tags": [
+				"jsr"
+			]
+		}
+	},
+	"tasks": {
+		"commit": {
+			"description": "Run pre-commit checks.",
+			"command": "deno doc --lint mod.ts && deno lint"
+		}
+	},
+	"name": "@aurellis/consolemaster",
+	"version": "1.0.0",
+	"license": "MIT",
+	"exports": "./mod.ts"
 }

@@ -153,39 +153,39 @@ export class cursor {
 	/**
 	 * Move the cursor to a certain row and column.
 	 */
-	static rowCol = (row: number, col: number) => `${ESC}${row};${col}f`;
+	static rowCol = (row: number, col: number): string => `${ESC}${row};${col}f`;
 	/**
 	 * Move the cursor up a certain number of lines.
 	 * The cursor will stay at the same column it was in before.
 	 */
-	static up = (lines: number) => `${ESC}${lines}A`;
+	static up = (lines: number): string => `${ESC}${lines}A`;
 	/**
 	 * Move the cursor down a certain number of lines.
 	 * The cursor will stay at the same column it was in before.
 	 */
-	static down = (lines: number) => `${ESC}${lines}B`;
+	static down = (lines: number): string => `${ESC}${lines}B`;
 	/**
 	 * Move the cursor right a certain number of columns.
 	 */
-	static right = (columns: number) => `${ESC}${columns}C`;
+	static right = (columns: number): string => `${ESC}${columns}C`;
 	/**
 	 * Move the cursor left a certain number of columns.
 	 */
-	static left = (columns: number) => `${ESC}${columns}D`;
+	static left = (columns: number): string => `${ESC}${columns}D`;
 	/**
 	 * Move the cursor down a certain number of lines.
 	 * The cursor will be moved to the beginning of this line.
 	 */
-	static downBeginning = (lines: number) => `${ESC}${lines}E`;
+	static downBeginning = (lines: number): string => `${ESC}${lines}E`;
 	/**
 	 * Move the cursor up a certain number of lines.
 	 * The cursor will be moved to the beginning of this line.
 	 */
-	static upBeginning = (lines: number) => `${ESC}${lines}F`;
+	static upBeginning = (lines: number): string => `${ESC}${lines}F`;
 	/**
 	 * Move the cursor to a specified column in its current row.
 	 */
-	static col = (col: number) => `${ESC}${col}G`;
+	static col = (col: number): string => `${ESC}${col}G`;
 	/**
 	 * Move the cursor up a line.
 	 */
