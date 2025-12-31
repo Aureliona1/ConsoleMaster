@@ -4,57 +4,45 @@ const ESC: string = "\x1b[";
  */
 export const reset: string = ESC + "0m";
 
-class bg {
-	static black: string = ESC + "40m";
-	static red: string = ESC + "41m";
-	static green: string = ESC + "42m";
-	static yellow: string = ESC + "43m";
-	static blue: string = ESC + "44m";
-	static magenta: string = ESC + "45m";
-	static cyan: string = ESC + "46m";
-	static white: string = ESC + "47m";
+const bg = {
+	black: ESC + "40m",
+	red: ESC + "41m",
+	green: ESC + "42m",
+	yellow: ESC + "43m",
+	blue: ESC + "44m",
+	magenta: ESC + "45m",
+	cyan: ESC + "46m",
+	white: ESC + "47m",
 
-	static brightBlack: string = ESC + "100m";
-	static brightRed: string = ESC + "101m";
-	static brightGreen: string = ESC + "102m";
-	static brightYellow: string = ESC + "103m";
-	static brightBlue: string = ESC + "104m";
-	static brightMagenta: string = ESC + "105m";
-	static brightCyan: string = ESC + "106m";
-	static brightWhite: string = ESC + "107m";
+	brightBlack: ESC + "100m",
+	brightRed: ESC + "101m",
+	brightGreen: ESC + "102m",
+	brightYellow: ESC + "103m",
+	brightBlue: ESC + "104m",
+	brightMagenta: ESC + "105m",
+	brightCyan: ESC + "106m",
+	brightWhite: ESC + "107m"
+} as const;
 
-	static rgb(r: number, g: number, b: number): string {
-		// Set to 8-bit ints
-		[r, g, b] = Array.from(new Uint8Array([r, g, b]));
-		return ESC + `48;2;${r};${g};${b}m`;
-	}
-}
+const fg = {
+	black: ESC + "30m",
+	red: ESC + "31m",
+	green: ESC + "32m",
+	yellow: ESC + "33m",
+	blue: ESC + "34m",
+	magenta: ESC + "35m",
+	cyan: ESC + "36m",
+	white: ESC + "37m",
 
-class fg {
-	static black: string = ESC + "30m";
-	static red: string = ESC + "31m";
-	static green: string = ESC + "32m";
-	static yellow: string = ESC + "33m";
-	static blue: string = ESC + "34m";
-	static magenta: string = ESC + "35m";
-	static cyan: string = ESC + "36m";
-	static white: string = ESC + "37m";
-
-	static brightBlack: string = ESC + "90m";
-	static brightRed: string = ESC + "91m";
-	static brightGreen: string = ESC + "92m";
-	static brightYellow: string = ESC + "93m";
-	static brightBlue: string = ESC + "94m";
-	static brightMagenta: string = ESC + "95m";
-	static brightCyan: string = ESC + "96m";
-	static brightWhite: string = ESC + "97m";
-
-	static rgb(r: number, g: number, b: number): string {
-		// Set to 8-bit ints
-		[r, g, b] = Array.from(new Uint8Array([r, g, b]));
-		return ESC + `38;2;${r};${g};${b}m`;
-	}
-}
+	brightBlack: ESC + "90m",
+	brightRed: ESC + "91m",
+	brightGreen: ESC + "92m",
+	brightYellow: ESC + "93m",
+	brightBlue: ESC + "94m",
+	brightMagenta: ESC + "95m",
+	brightCyan: ESC + "96m",
+	brightWhite: ESC + "97m"
+} as const;
 
 /**
  * A collection of codes to manipulate text foreground and background colors.
@@ -64,34 +52,47 @@ export class color {
 	/**
 	 * A collection of color codes to manipulate the foreground colors.
 	 */
-	static fg: fg = fg;
+	static fg: typeof fg = fg;
 	/**
 	 * A collection of color codes to manipulate the background colors.
 	 */
-	static bg: bg = bg;
+	static bg: typeof bg = bg;
+
+	/**
+	 * Generate a 24-bit (truecolor) color code.
+	 * @param r The red component (0 - 255).
+	 * @param g The green component (0 - 255).
+	 * @param b The blue component (0 - 255).
+	 * @param bg Whether to make the color for the background, or the foreground (default - false).
+	 */
+	static rgb(r: number, g: number, b: number, bg = false): string {
+		// Set to 8-bit ints
+		[r, g, b] = Array.from(new Uint8Array([r, g, b]));
+		return ESC + `${bg ? 4 : 3}8;2;${r};${g};${b}m`;
+	}
 }
 
-class enable {
-	static bold: string = ESC + "1m";
-	static dim: string = ESC + "2m";
-	static italic: string = ESC + "3m";
-	static underline: string = ESC + "4m";
-	static blinking: string = ESC + "5m";
-	static reverseMode: string = ESC + "7m";
-	static invisibleMode: string = ESC + "8m";
-	static strikeThrough: string = ESC + "9m";
-}
+const enable = {
+	bold: ESC + "1m",
+	dim: ESC + "2m",
+	italic: ESC + "3m",
+	underline: ESC + "4m",
+	blinking: ESC + "5m",
+	reverseMode: ESC + "7m",
+	invisibleMode: ESC + "8m",
+	strikeThrough: ESC + "9m"
+} as const;
 
-class disable {
-	static bold: string = ESC + "22m";
-	static dim: string = ESC + "22m";
-	static italic: string = ESC + "23m";
-	static underline: string = ESC + "24m";
-	static blinking: string = ESC + "25m";
-	static reverseMode: string = ESC + "27m";
-	static invisibleMode: string = ESC + "28m";
-	static strikeThrough: string = ESC + "29m";
-}
+const disable = {
+	bold: ESC + "22m",
+	dim: ESC + "22m",
+	italic: ESC + "23m",
+	underline: ESC + "24m",
+	blinking: ESC + "25m",
+	reverseMode: ESC + "27m",
+	invisibleMode: ESC + "28m",
+	strikeThrough: ESC + "29m"
+} as const;
 
 /**
  * A collection of text formatting codes.
@@ -100,12 +101,12 @@ export class format {
 	/**
 	 * Enable the format.
 	 */
-	static enable: enable = enable;
+	static enable: typeof enable = enable;
 	/**
 	 * Disable the format.
 	 * Note all formats can be cleared with the {@link reset} string.
 	 */
-	static disable: disable = disable;
+	static disable: typeof disable = disable;
 }
 
 /**
